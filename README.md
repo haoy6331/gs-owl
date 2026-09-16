@@ -1,177 +1,174 @@
-<p align="center">
-<img src="https://raw.githubusercontent.com/pprp/Pruner-Zero/main/.github/images/logo-of-pruner-zero.png" width="20%"> <br>
-</p>
-
 <div align="center">
-<h1>Pruner-Zero</h1>
-  <div align="center">
-  <a href="https://icml.cc/Conferences/2024">
-    <img src="https://img.shields.io/badge/Conference-ICML-FFB000.svg?style=flat-square" alt="LLaMA">
-  </a>
-  <a>
-    <img src="https://img.shields.io/badge/License-MIT-FFB000.svg?style=flat-square" alt="LLaMA">
-  </a>
-  <a href="https://github.com/facebookresearch/llama">
-    <img src="https://img.shields.io/badge/LLMs-LLaMA-FFB000.svg?style=flat-square" alt="LLaMA">
-  </a>
-  <a href="https://github.com/facebookresearch/llama">
-    <img src="https://img.shields.io/badge/LLMs-Llama2-FAB093.svg?style=flat-square" alt="Llama-2">
-  </a>
-  </div>
+
+# GS-OWL
+
+**Dual-Scale Sensitivity Coordination for Post-Training Pruning of Large Language Models**
+
+[![Python](https://img.shields.io/badge/Python-3.9-3776AB.svg)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-1.10+-EE4C2C.svg)](https://pytorch.org/)
+[![License](https://img.shields.io/badge/License-MIT-30343B.svg)](LICENSE)
+
+Research implementation and reproducibility package for GS-OWL.
+
 </div>
 
-Official PyTorch implementation of Pruner-Zero, accepted by ICML2024
-
-[**Pruner-Zero: Evolving Symbolic Pruning Metric from scratch for Large Language Models**](https://arxiv.org/abs/2406.02924v1) </br>
-*Peijie Dong\*, Lujun Li\* (* indicates equal contribution), Zhenheng Tang, Xiang Liu, Xinglin Pan, Qiang Wang, Xiaowen Chu <br>
-HKUST(GZ), HKUST, HKBU, HIT(SZ) <br>
-
-
-## Contents
-- [Introduction](#introduction)
-- [Setup](#setup)
-- [Usage](#usage)
-- [Zero-Shot Harness Evaluation](#zero-shot-harness-evaluation)
-- [Acknowledgement](#Acknowledgement)
-- [License](#license)
-- [Citation](#citation)
-
-
-
---- 
-
 <p align="center">
-<img src="https://raw.githubusercontent.com/pprp/Pruner-Zero/main/.github/images/pruner-zero-main-figure.png" width=100% height=100% 
-class="center">
+  <img src="paper/computer_engineering_latex/figures/GS_OWL_framework_balanced.svg" width="100%" alt="GS-OWL framework">
 </p>
 
+## Overview
 
-## Introduction 
+GS-OWL is a post-training unstructured pruning method that coordinates sensitivity at two scales:
 
-Despite the remarkable capabilities, Large Language Models (LLMs) face deployment challenges due to their extensive size. Pruning methods drop a subset of weights to accelerate, but many of them require retraining, which is prohibitively expensive and computationally demanding. Recently, post-training pruning approaches introduced novel metrics, enabling the pruning of LLMs without retraining. However, these metrics require the involvement of human experts and tedious trial and error. To efficiently identify superior pruning metrics, we develop an automatic framework for searching symbolic pruning metrics using genetic programming. In particular, we devise an elaborate search space encompassing the existing pruning metrics to discover the potential symbolic pruning metric. We propose an opposing operation simplification strategy to increase the diversity of the population. In this way, Pruner-Zero allows auto-generation of symbolic pruning metrics. Based on the searched results, we explore the correlation between pruning metrics and performance after pruning and summarize some principles. Extensive experiments on LLaMA and LLaMA-2 on language modeling and zero-shot tasks demonstrate that our Pruner-Zero obtains superior performance than SOTA post-training pruning methods.
+- **OSLA (Outlier-Sensitive Layer Allocation)** estimates how much each Transformer layer should be pruned. It combines activation-outlier proportion and severity, applies depth-aware constraints, and projects the resulting layer budgets to the global sparsity target.
+- **GWS (Gradient-Weighted Saliency)** determines which connections to prune inside each layer. It scores each connection using weight magnitude and a nonnegative L2-aggregated gradient signal, then performs row-wise ranking under the OSLA budget.
 
+The connection score is
 
-## Setup
-
-Installation instructions can be found in [INSTALL.md](INSTALL.md).
-
-## Usage 
-
-Our method require computation of gradient magnitude for calculation of pruning metric, following [GBLM-Pruner](https://github.com/VILA-Lab/GBLM-Pruner/blob/main/gradient_computation.py). For more scripts, see [grad_computation.sh](scripts/grad_computation.sh)
-
-```bash 
-# Demo for OPT 
-CUDA_VISIBLE_DEVICES=0 python lib/gradient_computation.py --nsamples 128 \
-    --model /path/to/facebook/opt-125m --llama_version 2 --task gradient
-
-# Demo for LLama-1
-CUDA_VISIBLE_DEVICES=0,1 python lib/gradient_computation.py --nsamples 1 \
-    --model $PATH_TO_LLAMA1 --llama_version 1 --task gradient 
-
-# Demo for LLama-2 
-CUDA_VISIBLE_DEVICES=0,1 python lib/gradient_computation.py --nsamples 128 \
-    --model $PATH_TO_LLAMA2 --llama_version 2 --task gradient
+```text
+M_ij^(l) = |W_ij^(l)| * (G_ij^(l))^beta,
 ```
 
-Below is an example command for pruning LLaMA-7B with Pruner-Zero, to achieve unstructured 50% sparsity.
+where the fixed main-experiment setting uses `beta = 0.5`. The current command-line name `owl-v9-wsqrtg` is retained for compatibility with the experiment code; it corresponds to GS-OWL in the manuscript.
 
-```sh
+## Fixed Main Configuration
+
+The formal main protocol uses one configuration across models, sparsity levels, and downstream evaluations. It is not reselected using test-set results.
+
+| Parameter | Value | Role |
+| --- | ---: | --- |
+| `H_m` | `5` | activation-outlier threshold multiplier |
+| `lambda` | `0.08` | layer-budget adjustment range |
+| `alpha` | `0.20` | outlier-severity fusion coefficient |
+| `beta` | `0.5` | GWS gradient exponent |
+| Calibration samples | `128` | fixed calibration-set size |
+| Sequence length | `2048` | calibration input length |
+| Seed | `0` | calibration random seed |
+| Gradient aggregation | `L2` | offline nonnegative aggregate |
+| Intra-layer selection | row-wise | fixed connection-ranking rule |
+
+## Repository Layout
+
+```text
+gs-owl/
+|-- main.py                         # pruning and evaluation entry point
+|-- lib/                            # OSLA, GWS, baselines, and evaluation code
+|-- scripts/                        # experiment, analysis, and plotting utilities
+|-- data/plant_mcq/                 # cleaned plant-science MCQ benchmark
+|-- lm-evaluation-harness/          # zero-shot evaluation dependency
+|-- paper/computer_engineering_latex/
+|   |-- main*.tex                   # manuscript sources
+|   |-- draw_*.py                   # editable framework-figure generators
+|   `-- figures/*.svg               # editable vector figures
+|-- INSTALL.md
+`-- REPRODUCIBILITY.md
+```
+
+Model weights, gradient checkpoints, generated masks, experiment outputs, and paper build products are intentionally excluded from Git.
+
+## Installation
+
+Create a Python 3.9 environment and install the project dependencies:
+
+```bash
+conda create -n gs-owl python=3.9 -y
+conda activate gs-owl
+
+pip install -r requirements.txt
+pip install -e ./lm-evaluation-harness
+```
+
+See [INSTALL.md](INSTALL.md) for the environment versions used by the original experiments. Access to gated model checkpoints must be configured separately through Hugging Face.
+
+## Quick Start
+
+### 1. Compute offline aggregate gradients
+
+GWS reuses an offline L2-aggregated gradient checkpoint. The same checkpoint can be reused across sparsity levels for a fixed model and calibration protocol.
+
+```bash
+python lib/gradient_computation.py \
+  --model meta-llama/Llama-2-7b-hf \
+  --llama_version 2 \
+  --nsamples 128 \
+  --seqlen 2048 \
+  --seed 0 \
+  --save_root gradients
+```
+
+### 2. Run GS-OWL pruning
+
+The following example prunes LLaMA-2-7B to 60% unstructured sparsity and evaluates WikiText-2 perplexity:
+
+```bash
 python main.py \
-    --model decapoda-research/llama-7b-hf \
-    --prune_method pruner-zero \
-    --sparsity_ratio 0.5 \
-    --sparsity_type unstructured \
-    --save out/llama_7b/unstructured/pruner-zero/ 
-```
-We provide a quick overview of the arguments:  
-- `--model`: The identifier for the LLaMA model on the Hugging Face model hub.
-- `--cache_dir`: Directory for loading or storing LLM weights. The default is `llm_weights`.
-- `--prune_method`: We have implemented three pruning methods, namely [`magnitude`, `wanda`, `sparsegpt`, `pruner-zero`].
-- `--sparsity_ratio`: Denotes the percentage of weights to be pruned.
-- `--sparsity_type`: Specifies the type of sparsity [`unstructured`, `2:4`, `4:8`].
-- `--save`: Specifies the directory where the result will be stored.
-
-For structured N:M sparsity, set the argument `--sparsity_type` to "2:4" or "4:8". An illustrative command is provided below:
-
-```sh
-python main.py \
-    --model decapoda-research/llama-7b-hf \
-    --prune_method pruner-zero \
-    --sparsity_ratio 0.5 \
-    --sparsity_type 2:4 \
-    --save out/llama_7b/2-4/pruner-zero/ 
+  --model meta-llama/Llama-2-7b-hf \
+  --prune_method owl-v9-wsqrtg \
+  --sparsity_ratio 0.60 \
+  --sparsity_type unstructured \
+  --Hyper_m 5 \
+  --Lamda 0.08 \
+  --Owl_alpha 0.20 \
+  --Grad_beta 0.5 \
+  --nsamples 128 \
+  --seed 0 \
+  --gradient_path /path/to/gradients_l2_checkpoint.pth \
+  --save outputs/llama2-7b/s60
 ```
 
-### Pruning LLaMA-2
+Replace the model identifier and gradient path with local or Hugging Face paths available in your environment. Use `--eval_dataset c4` for C4 perplexity.
 
-For [LLaMA-2](https://ai.meta.com/llama/) models, replace `--model` with `meta-llama/Llama-2-7b-hf` (take `7b` as an example):
-```sh 
-python main.py \
-    --model meta-llama/Llama-2-7b-hf \
-    --prune_method pruner-zero \
-    --sparsity_ratio 0.5 \
-    --sparsity_type unstructured \
-    --save out/llama2_7b/unstructured/pruner-zero/
+## Evaluation
+
+### Seven-task zero-shot evaluation
+
+Add `--eval_zero_shot` to the pruning command. One generated sparse mask is evaluated on all seven tasks:
+
+```text
+BoolQ, RTE, HellaSwag, ARC-Challenge, ARC-Easy, WinoGrande, OpenBookQA
 ```
 
-### Searched Symbolic Pruning Metric 
+To save the sparse checkpoint rather than using a temporary directory, also provide:
 
-```json
-{
-    "data": "mul",
-    "left": {
-        "data": "abs",
-        "left": {
-            "data": "mul",
-            "left": {
-                "data": "W"
-            },
-            "right": {
-                "data": "W"
-            }
-        }
-    },
-    "right": {
-        "data": "mms",
-        "left": {
-            "data": "G"
-        }
-    }
-}
+```bash
+--save_model outputs/llama2-7b/s60/checkpoint
 ```
 
-### Zero-Shot Evaluation
+### Plant-science MCQ evaluation
 
-For evaluating zero-shot tasks, we modify the [EleutherAI LM Harness](https://github.com/EleutherAI/lm-evaluation-harness/tree/master) framework so that it could evaluate pruned LLM models. We provide the modified repo in [this link](https://drive.google.com/file/d/1zugbLyGZKsH1L19L9biHLfaGGFnEc7XL/view?usp=sharing). Make sure to download, extract and install this custom `lm_eval` package from the source code.
+Evaluate a dense or previously saved sparse checkpoint using conditional option log-likelihood:
 
-For reproducibility, we used [commit `df3da98`](https://github.com/EleutherAI/lm-evaluation-harness/tree/df3da98c5405deafd519c2ddca52bb7c3fe36bef) on the main branch. All tasks were evaluated on task version of 0 except for BoolQ, where the task version is 1.
+```bash
+python scripts/eval_plant_mcq.py \
+  --model llama2-7b-s60=/path/to/checkpoint \
+  --questions data/plant_mcq/mobiplant_expert_clean_v2.jsonl \
+  --output outputs/plant_mcq/llama2-7b-s60.json
+```
 
-On a high level, the functionality we provide is adding two arguments `pretrained_model` and `tokenizer` in this [function](https://github.com/EleutherAI/lm-evaluation-harness/blob/master/lm_eval/evaluator.py#L17). We can then call this `simple_evaluate` function API from our [codebase](https://github.com/locuslab/wanda/blob/main/lib/eval.py#L148) to evaluate sparse pruned LLMs. To evaluate zero-shot tasks in addition to the WikiText perplexity, pass the `--eval_zero_shot` argument. 
+The question-set SHA-256 hash is stored with every result to make dense and sparse evaluations auditable.
 
+## Reproducibility Notes
 
-## Acknowledgement
-This repository is build upon the [SparseGPT](https://github.com/IST-DASLab/sparsegpt), [Wanda](https://github.com/locuslab/wanda) and [GBLM-Pruner](https://github.com/VILA-Lab/GBLM-Pruner) repository.
+- Use the same model revision, calibration samples, sequence length, seed, and gradient checkpoint when comparing methods.
+- Generate one sparse mask per model-sparsity pair and reuse it across all zero-shot tasks.
+- Report the realized sparsity printed by `check_sparsity`, not only the requested target.
+- Unstructured parameter sparsity does not by itself imply wall-clock speedup on general-purpose GPUs.
+- Generated files are written under ignored directories such as `outputs/`, `owl/`, and `gradients/`.
+
+Additional protocol notes are available in [REPRODUCIBILITY.md](REPRODUCIBILITY.md).
+
+## Paper and Figures
+
+The manuscript sources and editable scientific figures are in [`paper/computer_engineering_latex`](paper/computer_engineering_latex). Generated PDF and PNG files are excluded; regenerate figures with the Python drawing scripts in that directory.
+
+## Acknowledgements
+
+This implementation builds on the public code and ideas of Pruner-Zero, Wanda, SparseGPT, OWL, GBLM-Pruner, and the EleutherAI LM Evaluation Harness. Their original licenses and attribution notices remain applicable to the corresponding reused components.
 
 ## License
-This project is released under the MIT license. Please see the [LICENSE](LICENSE) file for more information.
 
-## Citation 
+This repository is released under the [MIT License](LICENSE).
 
-```bibtex
-@inproceedings{dong2024pruner,
-  title={Pruner-Zero: Evolving Symbolic Pruning Metric from Scratch for Large Language Models},
-  author={Dong, Peijie and Li, Lujun and Tang, Zhenheng and Liu, Xiang and Pan, Xinglin and Wang, Qiang and Chu, Xiaowen},
-  booktitle={Proceedings of the 41st International Conference on Machine Learning},
-  year={2024},
-  organization={PMLR},
-  url={https://arxiv.org/abs/2406.02924},
-  note={[arXiv: 2406.02924]}
-}
-```
+## Citation
 
-## GS-OWL extension
-
-This source copy also contains the GS-OWL pruning implementation, cleaned
-plant-MCQ evaluation protocol, paper source, and L20 submission scripts. See
-[`REPRODUCIBILITY.md`](REPRODUCIBILITY.md) for the maintained experiment
-entry points and repository layout.
+The GS-OWL paper citation will be added when the manuscript metadata is publicly available.
