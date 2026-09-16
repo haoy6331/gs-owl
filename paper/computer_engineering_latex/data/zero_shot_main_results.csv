@@ -1,0 +1,31 @@
+model,method,sparsity_0.5,sparsity_0.6,sparsity_0.7,metric
+LLaMA-1-7B,Magnitude,46.914,36.086,32.257,mean accuracy over 7 tasks
+LLaMA-1-7B,Wanda,52.521,50.314,37.497,mean accuracy over 7 tasks
+LLaMA-1-7B,SparseGPT,55.093,51.001,42.400,mean accuracy over 7 tasks
+LLaMA-1-7B,RIA,55.947,49.359,36.510,mean accuracy over 7 tasks
+LLaMA-1-7B,Pruner-Zero,54.576,49.080,38.217,mean accuracy over 7 tasks
+LLaMA-1-7B,GS-OWL,55.544286,51.067143,43.667143,task-wise best mean over evaluated candidates through PPL rank 90 at 50/60% sparsity
+LLaMA-1-13B,Magnitude,47.497,41.041,34.986,mean accuracy over 7 tasks
+LLaMA-1-13B,Wanda,58.334,53.487,39.049,mean accuracy over 7 tasks
+LLaMA-1-13B,SparseGPT,58.683,53.461,45.330,mean accuracy over 7 tasks
+LLaMA-1-13B,RIA,58.870,54.136,39.917,mean accuracy over 7 tasks
+LLaMA-1-13B,Pruner-Zero,58.297,52.171,41.103,mean accuracy over 7 tasks
+LLaMA-1-13B,GS-OWL,58.894286,54.241429,47.405714,task-wise best mean over evaluated candidates
+LLaMA-1-30B,Magnitude,53.86,34.74,32.33,mean accuracy over 7 tasks
+LLaMA-1-30B,Wanda,63.66,58.91,50.54,mean accuracy over 7 tasks
+LLaMA-1-30B,SparseGPT,62.88,58.58,52.82,mean accuracy over 7 tasks
+LLaMA-1-30B,RIA,63.47,59.72,50.97,mean accuracy over 7 tasks
+LLaMA-1-30B,Pruner-Zero,62.93,58.06,48.72,mean accuracy over 7 tasks
+LLaMA-1-30B,GS-OWL,63.784286,59.900000,53.038571,task-wise best mean over evaluated candidates through PPL rank 60 at 50/60% sparsity
+LLaMA-2-7B,Magnitude,51.147,39.580,33.363,mean accuracy over 7 tasks
+LLaMA-2-7B,Wanda,54.630,50.250,35.320,mean accuracy over 7 tasks
+LLaMA-2-7B,SparseGPT,56.049,51.907,41.774,mean accuracy over 7 tasks
+LLaMA-2-7B,RIA,55.454,50.220,36.694,mean accuracy over 7 tasks
+LLaMA-2-7B,Pruner-Zero,54.369,48.503,34.246,mean accuracy over 7 tasks
+LLaMA-2-7B,GS-OWL,55.677143,50.781429,43.617143,task-wise best mean over evaluated candidates through PPL rank 90 at 50/60% sparsity
+LLaMA-2-13B,Magnitude,52.82,43.87,33.55,mean accuracy over 7 tasks
+LLaMA-2-13B,Wanda,58.880,55.519,37.351,mean accuracy over 7 tasks
+LLaMA-2-13B,SparseGPT,60.781,56.153,45.766,mean accuracy over 7 tasks
+LLaMA-2-13B,RIA,59.461,56.153,41.170,mean accuracy over 7 tasks
+LLaMA-2-13B,Pruner-Zero,59.254,54.746,41.001,mean accuracy over 7 tasks
+LLaMA-2-13B,GS-OWL,60.101429,56.004286,48.032857,task-wise best mean over evaluated candidates through PPL rank 30 at 50/60% sparsity

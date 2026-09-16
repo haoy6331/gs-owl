@@ -1,0 +1,36 @@
+{
+  "data": "mul",
+  "left": {
+    "data": "mul",
+    "left": {
+      "data": "mul",
+      "left": {
+        "data": "mul",
+        "left": {
+          "data": "abs",
+          "left": { "data": "W" }
+        },
+        "right": {
+          "data": "abs",
+          "left": { "data": "W" }
+        }
+      },
+      "right": {
+        "data": "abs",
+        "left": { "data": "W" }
+      }
+    },
+    "right": {
+      "data": "abs",
+      "left": { "data": "W" }
+    }
+  },
+  "right": {
+    "data": "mul",
+    "left": {
+      "data": "abs",
+      "left": { "data": "G" }
+    },
+    "right": { "data": "X" }
+  }
+}

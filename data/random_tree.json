@@ -1,0 +1,30 @@
+{
+  "data": "mul",
+  "left": {
+    "data": "mul",
+    "left": {
+      "data": "abs",
+      "left": {
+        "data": "mul",
+        "left": {
+          "data": "mul",
+          "left": {
+            "data": "abs",
+            "left": {
+              "data": "W"
+            }
+          },
+          "right": {
+            "data": "W"
+          }
+        }
+      }
+    },
+    "right": {
+      "data": "W"
+    }
+  },
+  "right": {
+    "data": "X"
+  }
+}

@@ -1,0 +1,39 @@
+# Pruner-Zero GA Search Configuration
+
+# 实验设置
+experiment_name: pruner_zero_llama7b
+seed: 42
+
+# 模型配置
+model_path: /home/yh114/workdir/DSnoT/models/decapoda-research-llama-7B-hf
+device: cuda
+
+# 剪枝配置
+sparsity_ratio: 0.5
+calibration_samples: 256
+
+# 遗传算法参数
+population_size: 30
+max_iterations: 50
+sample_ratio: 0.4
+top_k: 20
+mutation_prob: 0.3
+min_depth: 2
+max_depth: 4
+checkpoint_freq: 10
+elite_size: 10
+
+# OWL层级自适应稀疏配置
+use_owl: false  # 设置为true启用OWL
+hyper_m: 5.0    # 异常值检测阈值倍数（越大越严格）
+lamda: 0.08     # 归一化参数（控制稀疏率变化范围，越大变化越大）
+
+# 数据集配置
+dataset: wikitext2
+seqlen: 2048
+eval_samples: 512
+
+# 评估设置
+fast_eval: false
+full_evaluation: true
+stability_check: true

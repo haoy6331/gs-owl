@@ -1,0 +1,50 @@
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# Local model weights, gradients, and generated experiment outputs
+llm_weights/
+gradients/
+owl/
+out/
+outputs/
+log/
+tmp/
+data_hf/
+zero-datasets/
+*.safetensors
+*.bin
+*.pth
+*.pt
+
+# Generated paper builds and package exports
+paper/**/build*/
+paper/**/deliverables/
+paper/**/overleaf_upload*/
+paper/**/tmp/
+paper/**/*.pdf
+paper/**/*.png
+paper/**/*.docx
+paper/**/rendered_*/
+paper/**/*.aux
+paper/**/*.bbl
+paper/**/*.blg
+paper/**/*.fdb_latexmk
+paper/**/*.fls
+paper/**/*.log
+paper/**/*.out
+paper/**/*.toc
+paper/**/*.synctex.gz
+paper/**/*.zip
+
+# Local IDE and Codex state
+.idea/
+.codex_tmp/

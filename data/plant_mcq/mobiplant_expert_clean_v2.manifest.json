@@ -1,0 +1,20 @@
+{
+  "cleaning_version": 2,
+  "dataset": "C:\\Users\\杨昊\\Desktop\\实验数据\\owl\\owl\\plant_mcq\\mobiplant_expert_all.jsonl",
+  "split": "train",
+  "input_rows": 565,
+  "valid_rows_before_sampling": 564,
+  "n_questions": 564,
+  "rejected_rows": 1,
+  "rejection_counts": {
+    "placeholder_question": 1
+  },
+  "seed": 2026,
+  "expert_only": true,
+  "preserve_ids": true,
+  "output": "C:\\Users\\杨昊\\Desktop\\实验数据\\owl\\owl\\plant_mcq\\mobiplant_expert_clean_v2.jsonl",
+  "input_sha256": "aaea335eb4f8d47801994d96e78d7258fff50fd12a53fd54673cfb00b9a3dfad",
+  "output_sha256": "071c8459b4ca7cab1b03b36947e82f05459375c67b63640d0155025faa353e8c",
+  "answer_index_convention": "0-based",
+  "evaluation": "conditional log-likelihood over answer options"
+}

@@ -1,0 +1,284 @@
+{
+  "input": "C:\\Users\\杨昊\\Desktop\\实验数据\\owl\\owl\\plant_mcq\\mobiplant_expert_all.jsonl",
+  "output": "C:\\Users\\杨昊\\Desktop\\实验数据\\owl\\owl\\plant_mcq\\mobiplant_expert_clean_v2.jsonl",
+  "input_rows": 565,
+  "output_rows": 564,
+  "whitespace_fields_normalized": 157,
+  "rejected": [
+    {
+      "source_index": 349,
+      "source_id": "plant-mcq-0349",
+      "reason": "placeholder_question",
+      "question_preview": "x"
+    }
+  ],
+  "rejection_counts": {
+    "placeholder_question": 1
+  },
+  "warnings": [
+    {
+      "id": "plant-mcq-0031",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        17,
+        195,
+        20
+      ],
+      "max_min_ratio": 11.471
+    },
+    {
+      "id": "plant-mcq-0038",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        14,
+        10,
+        71
+      ],
+      "max_min_ratio": 7.1
+    },
+    {
+      "id": "plant-mcq-0040",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        44,
+        7,
+        15
+      ],
+      "max_min_ratio": 6.286
+    },
+    {
+      "id": "plant-mcq-0052",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        24,
+        14,
+        154
+      ],
+      "max_min_ratio": 11.0
+    },
+    {
+      "id": "plant-mcq-0053",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        13,
+        14,
+        66
+      ],
+      "max_min_ratio": 5.077
+    },
+    {
+      "id": "plant-mcq-0054",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        8,
+        104,
+        13
+      ],
+      "max_min_ratio": 13.0
+    },
+    {
+      "id": "plant-mcq-0061",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        122,
+        68,
+        16
+      ],
+      "max_min_ratio": 7.625
+    },
+    {
+      "id": "plant-mcq-0104",
+      "type": "long_prompt",
+      "max_scored_text_chars": 7470
+    },
+    {
+      "id": "plant-mcq-0106",
+      "type": "long_prompt",
+      "max_scored_text_chars": 6224
+    },
+    {
+      "id": "plant-mcq-0123",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        15,
+        19,
+        140
+      ],
+      "max_min_ratio": 9.333
+    },
+    {
+      "id": "plant-mcq-0129",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        11,
+        12,
+        1
+      ],
+      "max_min_ratio": 12.0
+    },
+    {
+      "id": "plant-mcq-0132",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        204,
+        10,
+        11
+      ],
+      "max_min_ratio": 20.4
+    },
+    {
+      "id": "plant-mcq-0146",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        197,
+        5,
+        198
+      ],
+      "max_min_ratio": 39.6
+    },
+    {
+      "id": "plant-mcq-0161",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        7,
+        22,
+        51
+      ],
+      "max_min_ratio": 7.286
+    },
+    {
+      "id": "plant-mcq-0206",
+      "type": "missing_doi"
+    },
+    {
+      "id": "plant-mcq-0207",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        15,
+        57,
+        8
+      ],
+      "max_min_ratio": 7.125
+    },
+    {
+      "id": "plant-mcq-0223",
+      "type": "missing_doi"
+    },
+    {
+      "id": "plant-mcq-0256",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        37,
+        51,
+        8
+      ],
+      "max_min_ratio": 6.375
+    },
+    {
+      "id": "plant-mcq-0275",
+      "type": "missing_doi"
+    },
+    {
+      "id": "plant-mcq-0282",
+      "type": "missing_doi"
+    },
+    {
+      "id": "plant-mcq-0283",
+      "type": "missing_doi"
+    },
+    {
+      "id": "plant-mcq-0292",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        12,
+        9,
+        2
+      ],
+      "max_min_ratio": 6.0
+    },
+    {
+      "id": "plant-mcq-0308",
+      "type": "missing_doi"
+    },
+    {
+      "id": "plant-mcq-0338",
+      "type": "missing_doi"
+    },
+    {
+      "id": "plant-mcq-0374",
+      "type": "missing_doi"
+    },
+    {
+      "id": "plant-mcq-0410",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        77,
+        14,
+        23
+      ],
+      "max_min_ratio": 5.5
+    },
+    {
+      "id": "plant-mcq-0432",
+      "type": "missing_doi"
+    },
+    {
+      "id": "plant-mcq-0440",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        12,
+        20,
+        68
+      ],
+      "max_min_ratio": 5.667
+    },
+    {
+      "id": "plant-mcq-0480",
+      "type": "option_length_imbalance",
+      "word_counts": [
+        21,
+        4,
+        4
+      ],
+      "max_min_ratio": 5.25
+    },
+    {
+      "id": "plant-mcq-0500",
+      "type": "missing_doi"
+    },
+    {
+      "id": "plant-mcq-0527",
+      "type": "missing_doi"
+    }
+  ],
+  "warning_counts": {
+    "long_prompt": 2,
+    "missing_doi": 11,
+    "option_length_imbalance": 18
+  },
+  "length_bias_diagnostics": {
+    "heuristic": "choose the option with the largest whitespace-delimited word count",
+    "expected_accuracy_with_uniform_tie_break": 0.46631205673758924,
+    "unique_longest_questions": 376,
+    "unique_longest_accuracy": 0.4973404255319149,
+    "tied_longest_questions": 188
+  },
+  "answer_position_counts": {
+    "0": 193,
+    "1": 174,
+    "2": 197
+  },
+  "area_counts": {
+    "CELL BIOLOGY AND CELL SIGNALING": 23,
+    "ENVIRONMENT": 152,
+    "EVOLUTION": 24,
+    "GENE REGULATION": 150,
+    "GENOME AND GENOMICS": 41,
+    "GROWTH AND DEVELOPMENT": 77,
+    "HORMONES": 36,
+    "PHYSIOLOGY AND METABOLISM": 26,
+    "PLANT BIOTECHNOLOGY": 35
+  },
+  "input_sha256": "aaea335eb4f8d47801994d96e78d7258fff50fd12a53fd54673cfb00b9a3dfad",
+  "output_sha256": "071c8459b4ca7cab1b03b36947e82f05459375c67b63640d0155025faa353e8c"
+}

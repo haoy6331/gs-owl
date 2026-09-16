@@ -1,0 +1,25 @@
+﻿model,method,sparsity_0.5,sparsity_0.6,sparsity_0.7,metric
+LLaMA-1-7B,Magnitude,46.9143,36.0857,32.2571,mean accuracy over 7 tasks
+LLaMA-1-7B,Wanda,52.5214,50.3143,37.4971,mean accuracy over 7 tasks
+LLaMA-1-7B,SparseGPT,55.0929,51.0014,42.4,mean accuracy over 7 tasks
+LLaMA-1-7B,RIA,55.9471,49.3586,36.51,mean accuracy over 7 tasks
+LLaMA-1-7B,Pruner-Zero,54.5757,49.08,38.2171,mean accuracy over 7 tasks
+LLaMA-1-7B,GS-OWL,54.307,49.23,43.326,mean accuracy over 7 tasks
+LLaMA-1-13B,Magnitude,47.4971,41.0414,34.9857,mean accuracy over 7 tasks
+LLaMA-1-13B,Wanda,58.3343,53.4871,39.0486,mean accuracy over 7 tasks
+LLaMA-1-13B,SparseGPT,58.6829,53.4614,45.33,mean accuracy over 7 tasks
+LLaMA-1-13B,RIA,58.87,54.1357,39.9171,mean accuracy over 7 tasks
+LLaMA-1-13B,Pruner-Zero,58.2971,52.1714,41.1029,mean accuracy over 7 tasks
+LLaMA-1-13B,GS-OWL,58.759,53.684,46.781,mean accuracy over 7 tasks
+LLaMA-2-7B,Magnitude,51.1471,39.58,33.3629,mean accuracy over 7 tasks
+LLaMA-2-7B,Wanda,54.63,50.25,35.32,mean accuracy over 7 tasks
+LLaMA-2-7B,SparseGPT,56.0486,51.9071,41.7743,mean accuracy over 7 tasks
+LLaMA-2-7B,RIA,55.4543,50.22,36.6943,mean accuracy over 7 tasks
+LLaMA-2-7B,Pruner-Zero,54.3686,48.5029,34.2457,mean accuracy over 7 tasks
+LLaMA-2-7B,GS-OWL,55.24,49.713,43.511,mean accuracy over 7 tasks
+LLaMA-2-13B,Magnitude,,,,mean accuracy over 7 tasks
+LLaMA-2-13B,Wanda,58.88,55.5186,37.3514,mean accuracy over 7 tasks
+LLaMA-2-13B,SparseGPT,60.7814,56.1529,45.7657,mean accuracy over 7 tasks
+LLaMA-2-13B,RIA,59.4614,56.1529,41.17,mean accuracy over 7 tasks
+LLaMA-2-13B,Pruner-Zero,59.2543,54.7457,41.0014,mean accuracy over 7 tasks
+LLaMA-2-13B,GS-OWL,59.483,55.563,47.243,mean accuracy over 7 tasks

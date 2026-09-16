@@ -1,0 +1,9 @@
+model,method,sparsity,correct,n_questions,accuracy,Hyper_m,Lamda,Owl_alpha,selection
+PLLaMA-7B,Dense,,225,565,0.3982300885,,,,single_dense_run
+PLLaMA-7B,GS-OWL,0.5,208,565,0.3681415929,7.0,0.04,0.20,best_of_20
+PLLaMA-7B,GS-OWL,0.6,208,565,0.3681415929,5.0,0.14,0.10,best_of_20
+PLLaMA-7B,GS-OWL,0.7,193,565,0.3415929204,6.0,0.14,0.10,best_of_20
+PLLaMA-13B,Dense,,179,565,0.3168141593,,,,single_dense_run
+PLLaMA-13B,GS-OWL,0.5,192,565,0.3398230088,6.0,0.02,0.15,best_of_20
+PLLaMA-13B,GS-OWL,0.6,204,565,0.3610619469,6.0,0.06,0.10,best_of_20
+PLLaMA-13B,GS-OWL,0.7,236,565,0.4176991150,7.0,0.14,0.25,best_of_20

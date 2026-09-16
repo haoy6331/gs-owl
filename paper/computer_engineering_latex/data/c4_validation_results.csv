@@ -1,0 +1,6 @@
+model,sparsity_0.5,sparsity_0.6,sparsity_0.7,selection_protocol,eval_split
+LLaMA-1-7B,9.154014,11.932858,28.437880,fixed from WikiText-2 sweep,C4 validation
+LLaMA-1-13B,8.013481,9.736983,16.383730,fixed from WikiText-2 sweep,C4 validation
+LLaMA-1-30B,7.101225,8.546425,12.903419,fixed from WikiText-2 sweep,C4 validation
+LLaMA-2-7B,8.793555,11.748209,37.500629,fixed from WikiText-2 sweep,C4 validation
+LLaMA-2-13B,7.782098,9.653574,18.499722,fixed from WikiText-2 sweep,C4 validation
